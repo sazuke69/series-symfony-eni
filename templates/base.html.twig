@@ -5,22 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{%  block title %}Series !{% endblock %}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
+    <link rel="icon" href="{{ asset('img/icon.png') }}">
+
 </head>
 <body>
-    <header>
-        <h1>series !</h1>
-        {% include('inc/nav.html.twig') %}
-    </header>
+    <div class="container">
+            <header>
+                <h1><a href="{{ path('main_home') }}"></a><img src="{{ asset('img/logo.svg') }}" alt="Series !"></h1>
+                {% include('inc/nav.html.twig') %}
+            </header>
 
-    <main>
-        {% block body %}{% endblock %}
-    </main>
+            <main>
+                {% block body %}{% endblock %}
+            </main>
 
-    <footer>
-        {% include('inc/nav.html.twig') %}
-        <div>&copy; {{ "now"|date("Y") }} Series !</div>
-    </footer>
-
+            <footer>
+                {% include('inc/nav.html.twig') %}
+                <div>© {{ "now"|date("Y") }} Series !</div>
+            </footer>
+    </div>
 
 </body>
 </html>
