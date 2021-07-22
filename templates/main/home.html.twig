@@ -1,9 +1,10 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}
+    {{parent() }} | Home
+{% endblock %}
+
 {% block body %}
     <h1>Coucou</h1>
 {% endblock %}
 
-{% block title %}
-{{parent() }} | Home
-{% endblock %}
