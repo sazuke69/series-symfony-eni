@@ -1,6 +1,12 @@
+html{
+    font-size: 18px;
+}
+
 body{
     background: linear-gradient(#000000, #132135);
     background-attachment: fixed;
+    background-size: cover;
+    background-position: center center;
     color: #EEE;
     font-family: 'Crimson Text', serif;
 }
@@ -22,6 +28,10 @@ a:hover{
 
 img{
     max-width: 100%;
+}
+
+h1, h2, h3, h4 {
+    margin-top: 0;
 }
 
 body>.container{
@@ -52,4 +62,52 @@ nav li{
     display: grid;
     grid-gap: 10px;
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+}
+
+.series-details{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 30px;
+}
+
+.series-details-infos{
+    margin-bottom: 1rem;
+}
+
+/* forms */
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="password"],
+input[type="email"],
+textarea,
+select {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 400px;
+    display: block;
+}
+
+form > div > div {
+    margin-bottom: 1rem;
+}
+
+#serie_genres label {
+    margin: 0 0.5rem 0 0.1rem;
+}
+
+.seasons article {
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+.seasons article img {
+    max-height: 200px;
+    margin-right: 0.6rem;
+}
+
+@media screen and (min-width: 700px) {
+    .serie-details {
+        grid-template-columns: 300px 1fr;
+    }
 }

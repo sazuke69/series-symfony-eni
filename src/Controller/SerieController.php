@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Serie;
+use App\Form\SerieType;
 use App\Repository\SerieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SerieController extends AbstractController
 {
     /**
-     * @Route("", name="list")
+     * @Route("/", name="list")
      */
     public function list(SerieRepository $serieRepository): Response
     {
@@ -35,7 +36,7 @@ class SerieController extends AbstractController
         $serie = $serieRepository->find($id);
 
         if(!$serie){
-            throw $this->createNotFoundException('Oops! this serie does not exists !');
+            throw $this->createNotFoundException('oh no !!!!!');
         }
 
         return $this->render('serie/details.html.twig', [
@@ -46,9 +47,25 @@ class SerieController extends AbstractController
     /**
      * @Route ("/create", name="create")
      */
-    public function create(Request $request): Response{
-        dump($request);
-        return $this->render('serie/create.html.twig');
+    public function create(Request $request, EntityManagerInterface $entityManager): Response{
+
+        $serie = new Serie();
+        $serie->setDateCreated(new \DateTime());
+        $serieForm = $this->createForm(SerieType::class, $serie);
+
+        $serieForm->handleRequest($request);
+
+        if($serieForm->isSubmitted() && $serieForm->isValid()){
+            $entityManager->persist($serie);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'serie added ! godd job.');
+            return $this->redirectToRoute('serie_details', ['id'=>$serie->getId()]);
+        }
+
+        return $this->render('serie/create.html.twig', [
+                                'serieForm'=> $serieForm->createView()
+        ]);
     }
 
     /**
@@ -92,4 +109,16 @@ class SerieController extends AbstractController
         return $this->render('serie/create.html.twig');
 
     }
+
+    /**
+     * @Route ("/delete/{id}", name="delete")
+     */
+    public function delete(Serie $serie, EntityManagerInterface $entityManager)
+    {
+        $entityManager->remove($serie);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('main_home');
+    }
+
 }

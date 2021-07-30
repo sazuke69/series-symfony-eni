@@ -1,13 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    create a new series | {{ parent() }}
-
+    Add a new series | {{ parent() }}
 {% endblock %}
+
+
 
 {% block body %}
     <div>
-        {# todo: afficher le formulaire #}
+        <h2>Create</h2>
+
+        {{ form_start(serieForm) }}
+        {{ form_widget(serieForm) }}
+        <button>Create serie</button>
+        {{ form_end(serieForm) }}
     </div>
 {% endblock %}
 
